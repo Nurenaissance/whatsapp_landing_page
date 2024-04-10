@@ -1,11 +1,11 @@
 import React from 'react';
+import NurenLogo from './Nuren_logo.png';
 import { Button } from '../../globalStyles';
 import {
-  FaFacebook,
   FaInstagram,
-  FaYoutube,
-  FaTwitter,
-  FaLinkedin
+  FaLinkedin,
+  FaWhatsapp,
+  FaDiscord
 } from 'react-icons/fa';
 import {
   FooterContainer,
@@ -72,7 +72,7 @@ function Footer() {
           </FooterLinkItems>
           <FooterLinkItems>
             <FooterLinkTitle>Social Media</FooterLinkTitle>
-            <FooterLink to='/'>Instagram</FooterLink>
+            <FooterLink to='https://www.instagram.com'>Instagram</FooterLink>
             <FooterLink to='/'>Facebook</FooterLink>
             <FooterLink to='/'>Youtube</FooterLink>
             <FooterLink to='/'>Twitter</FooterLink>
@@ -82,25 +82,22 @@ function Footer() {
       <SocialMedia>
         <SocialMediaWrap>
           <SocialLogo to='/'>
-            <SocialIcon />
-            ULTRA
+            <SocialIcon src={NurenLogo} alt="Nuren Logo"/>
+            Nuren AI
           </SocialLogo>
-          <WebsiteRights>ULTRA © {date.getFullYear()} </WebsiteRights>
+          <WebsiteRights>Nuren © {date.getFullYear()} </WebsiteRights>
           <SocialIcons>
-            <SocialIconLink href='/' target='_blank' aria-label='Facebook'>
-              <FaFacebook />
-            </SocialIconLink>
-            <SocialIconLink href='/' target='_blank' aria-label='Instagram'>
+            <SocialIconLink href='https://www.instagram.com' target='_blank' aria-label='Instagram'>
               <FaInstagram />
             </SocialIconLink>
-            <SocialIconLink href='/' target='_blank' aria-label='YouTube' >
-              <FaYoutube />
+            <SocialIconLink href='https://www.whatsapp.com' target='_blank' aria-label='Whatsapp'>
+              <FaWhatsapp />
             </SocialIconLink>
-            <SocialIconLink href='/' target='_blank' aria-label='Twitter'>
-              <FaTwitter />
-            </SocialIconLink>
-            <SocialIconLink href='/' target='_blank' aria-label='LinkedIn'>
+            <SocialIconLink href='https://www.linkedin.com' target='_blank' aria-label='LinkedIn'>
               <FaLinkedin />
+            </SocialIconLink>
+            <SocialIconLink href='/' target='_blank' aria-label='Discord'>
+              <FaDiscord />
             </SocialIconLink>
           </SocialIcons>
         </SocialMediaWrap>

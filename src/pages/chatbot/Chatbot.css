@@ -1,0 +1,83 @@
+.chatbot-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  .card {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .contacts {
+    max-width: 200px;
+  }
+  
+  .contacts ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .contacts li {
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  
+  .contacts li:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .chat {
+    max-width: 400px;
+    overflow-y: auto;
+  }
+  
+  .conversation {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .user {
+    align-self: flex-end;
+    background-color: #e6f2ff;
+  }
+  
+  .chatbot {
+    align-self: flex-start;
+    background-color: #f2f2f2;
+  }
+  
+  .input-area {
+    display: flex;
+  }
+  
+  .input-area input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .input-area button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .contact-details {
+    max-width: 200px;
+  }
+  
