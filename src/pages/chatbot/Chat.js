@@ -1,11 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Chatbot.css';
 
 const Chatbot = () => {
-  const [message, setMessage] = useState('');
+  const [contact, setContact] = useState(null);
   const [conversation, setConversation] = useState([]);
-  const [currentContact, setCurrentContact] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [message, setMessage] = useState('');
+  const [aiReplies, setAiReplies] = useState(false);
+
+  useEffect(() => {
+    fetchConversation();
+    fetchContact();
+  }, []);
+
+  const fetchConversation = async () => {
+    try {
+      const response = await axios.get('https://climbing-ripple-angora.glitch.me/get-map/919528227181/');
+      const { bot_replies, user_replies } = response.data;
+      const newConversation = [];
+      for (let i = 0; i < bot_replies.length; i++) {
+        newConversation.push({ text: bot_replies[i], sender: 'bot' });
+        if (user_replies[i]) {
+          newConversation.push({ text: user_replies[i], sender: 'user' });
+        }
+      }
+      setConversation(newConversation);
+    } catch (error) {
+      console.error('Error fetching conversation:', error);
+    }
+  };
+
+  const fetchContact = async () => {
+    try {
+      const response = await axios.get('https://climbing-ripple-angora.glitch.me/get-map/919528227181/');
+      setContact(response.data.contact);
+    } catch (error) {
+      console.error('Error fetching contact:', error);
+    }
+  };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const toggleAiReplies = () => {
+    setAiReplies(!aiReplies);
+  };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
@@ -14,72 +55,65 @@ const Chatbot = () => {
   const sendMessage = async () => {
     if (!message.trim()) return;
 
-    // Add user message to conversation
-    setConversation([...conversation, { text: message, sender: 'user' }]);
+    // Add the user's message to the conversation
+    const newMessage = { text: message, sender: 'user' };
+    setConversation([...conversation, newMessage]);
     setMessage('');
 
     try {
-      // Send user message to backend
+      // Make a POST request to send the message
       const response = await axios.post('/api/send-message', { message });
       const data = response.data;
 
-      // Add chatbot response to conversation
-      setConversation([...conversation, { text: data.message, sender: 'chatbot' }]);
+      // Add the chatbot's response to the conversation
+      const chatbotResponse = { text: data.message, sender: 'chatbot' };
+      setConversation([...conversation, chatbotResponse]);
     } catch (error) {
       console.error('Error sending message:', error);
     }
   };
 
-  const selectContact = async (contactName) => {
-    setCurrentContact(contactName);
-    try {
-      // Fetch conversation with selected contact from backend
-      const response = await axios.get(`/api/conversation/${contactName}`);
-      const data = response.data;
-      setConversation(data.conversation);
-    } catch (error) {
-      console.error('Error fetching conversation:', error);
-    }
-  };
-
   return (
     <div className="chatbot-container">
-      {/* Left side - Contacts */}
       <div className="contacts card">
         <h2>Contacts</h2>
-        <ul>
-          <li onClick={() => selectContact('John')}>John</li>
-          <li onClick={() => selectContact('Jane')}>Jane</li>
-          {/* Add more contacts as needed */}
-        </ul>
+        <input type="text" placeholder="Search contacts..." value={searchQuery} onChange={handleSearch} />
+        {/* Render contacts list here */}
       </div>
 
-      {/* Center - Chat messages */}
       <div className="chat card">
         <div className="conversation">
-          {conversation.map((msg, index) => (
-            <div key={index} className={`message ${msg.sender}`}>
-              {msg.text}
-            </div>
-          ))}
+          <h2>Conversation</h2>
+          <div className="conversation-text">
+            {/* Render conversation messages here */}
+            {conversation.map((msg, index) => (
+              <div key={index} className={`message ${msg.sender}`}>
+                {msg.text}
+              </div>
+            ))}
+          </div>
         </div>
         <div className="input-area">
           <input
             type="text"
-            placeholder="Type your message..."
+            placeholder={aiReplies ? 'Waiting for AI response...' : 'Type your message...'}
             value={message}
             onChange={handleMessageChange}
-            onKeyPress={(event) => event.key === 'Enter' && sendMessage()}
+            disabled={aiReplies}
           />
+          <button onClick={toggleAiReplies}>AI Replies: {aiReplies ? 'On' : 'Off'}</button>
           <button onClick={sendMessage}>Send</button>
         </div>
       </div>
 
-      {/* Right side - Contact details */}
       <div className="contact-details card">
         <h2>Contact Details</h2>
-        {currentContact && <p>{currentContact}</p>}
-        {/* Add more contact details as needed */}
+        {contact && (
+          <div>
+            <p><strong>Name:</strong> {contact.name}</p>
+            <p><strong>Phone Number:</strong> {contact.phone_number}</p>
+          </div>
+        )}
       </div>
     </div>
   );

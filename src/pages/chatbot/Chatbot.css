@@ -1,83 +1,142 @@
+/* Overall container for the chatbot */
 .chatbot-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    height: 100vh;
-  }
-  
-  .card {
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .contacts {
-    max-width: 200px;
-  }
-  
-  .contacts ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .contacts li {
-    cursor: pointer;
-    margin-bottom: 10px;
-  }
-  
-  .contacts li:hover {
-    background-color: #f2f2f2;
-  }
-  
-  .chat {
-    max-width: 400px;
-    overflow-y: auto;
-  }
-  
-  .conversation {
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
-  .message {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-  }
-  
-  .user {
-    align-self: flex-end;
-    background-color: #e6f2ff;
-  }
-  
-  .chatbot {
-    align-self: flex-start;
-    background-color: #f2f2f2;
-  }
-  
-  .input-area {
-    display: flex;
-  }
-  
-  .input-area input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 5px 0 0 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .input-area button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    background-color: #007bff;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .contact-details {
-    max-width: 200px;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+  background-color: #e9f5ea; /* Light green background */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Left side - Contacts and search bar */
+.contacts.card {
+  width: 20%; /* Adjust width for wider chat screen */
+  padding: 1rem;
+  border-right: 1px solid #ddd; /* Light gray border */
+  background-color: #f0f8f7; /* Light green background */
+  border-radius: 5px 0 0 5px; /* Rounded corners on left side */
+}
+
+.contacts h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333; /* Dark gray text */
+}
+
+.contacts input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc; /* Light gray border */
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contacts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contacts li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #eee; /* Very light gray border */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.contacts li:hover {
+  background-color: #dff2e9; /* Light green hover effect */
+}
+
+/* Center - Chat messages */
+.chat.card {
+  width: 80%; /* Wider chat screen */
+  padding: 1rem;
+  background-color: #f0f8f7; /* Light green background */
+  border-radius: 0 5px 5px 0; /* Rounded corners on right side */
+  overflow-y: auto; /* Enable scrolling for long conversations */
+  height: calc(100vh - 2rem); /* Adjust height to fit remaining space */
+}
+
+.chat .conversation {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: #e9f5ea; /* Light green message background */
+  height: 80vh;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chat .message {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  display: block; /* Make messages appear on separate lines */
+  width: fit-content; /* Allow messages to wrap naturally */
+  max-width: 70%;
+}
+
+.chat .message.user {
+  background-color: #dcf8c6; /* Light green user messages */
+  color: #333; /* Dark gray text */
+}
+
+.chat .message.chatbot {
+  background-color: #ffffff; /* White chatbot messages */
+  color: #333; /* Dark gray text */
+}
+
+/* Input area */
+.chat .input-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.chat .input-area button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #25d366; /* Green button background (WhatsApp green) */
+  color: #fff; /* White text */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.chat .input-area button:hover {
+  background-color: #128c7e; /* Darker green hover effect */
+}
+
+.chat .input-area input[type="text"] {
+  width: calc(100% - 8rem); /* Adjust width to fit alongside buttons */
+  padding: 0.5rem;
+}
+/* Right side - Contact details */
+.contact-details.card {
+  width: 30%; /* Adjust width for wider chat screen */
+  padding: 1.5rem; /* Increase padding for better spacing */
+  background-color: #f0f8f7; /* White background */
+  border-radius: 0 5px 5px 0; /* Rounded corners on right side */
+}
+
+.contact-details h2 {
+  margin-bottom: 1.5rem; /* Increase margin for better separation */
+  font-size: 1.4rem; /* Increase font size for emphasis */
+  color: #333; /* Dark gray text */
+}
+
+.contact-details p {
+  margin-bottom: 1rem; /* Adjust spacing between paragraphs */
+  font-size: 1.1rem; /* Increase font size for better readability */
+}
+
+.contact-details img {
+  width: 120px; /* Increase width of profile photo */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Circular profile photo */
+  margin-bottom: 1.5rem; /* Increase spacing below profile photo */
+}
