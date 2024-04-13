@@ -3,7 +3,6 @@ import React from 'react';
 import { InfoSec, InfoRow, InfoColumn, TextWrapper, TopLine, Heading, Subtitle, ImgWrapper, Img } from './InfoSection.elements';
 import { Container, Button } from '../../globalStyles';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import SignupPage from '../../pages/SignUp/SignupPage';
 
 const InfoSection = ({
     primary,

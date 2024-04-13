@@ -2,7 +2,6 @@
     import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { FaRobot } from 'react-icons/fa';
     import NurenLogo from './Nuren_logo.png';
-    import Login from '../../pages/LoginPage/Login';
     import { Nav, 
         NavbarContainer, 
         NavLogo, 
@@ -21,6 +20,7 @@ import { FaRobot } from 'react-icons/fa';
 
         const [click, setClick] = useState(false);
         const [button, setButton] = useState(true);
+        const [showTranscript, setShowTranscript] = useState(false);
 
         const [homeClick, setHomeClick] = useState(false);
         const [servicesClick, setServicesClick] = useState(false);
@@ -42,6 +42,10 @@ import { FaRobot } from 'react-icons/fa';
             setProductsClick(true);
             setServicesClick(false);
         }
+
+        const handleTranscriptClick = () => {
+            setShowTranscript(true);
+          };
 
         const handleClick = () =>  setClick(!click);
         
@@ -102,11 +106,17 @@ import { FaRobot } from 'react-icons/fa';
                                     Products
                                 </NavLinks>
                             </NavItem>
+                            <NavItem onClick={handleTranscriptClick} productsClick={productsClick}>
+                                <NavLinks to='/logs' onClick={closeMobileMenu}>
+                                    Transcript
+                                </NavLinks>
+                            </NavItem>
+                            {isLoggedIn && 
                             <NavItem onClick={handleChatbotClick}>
                             <NavLinks to='#' onClick={closeMobileMenu}>
                                 <FaRobot /> Chatbot Demo
                             </NavLinks>
-                        </NavItem>
+                        </NavItem>}
                             {isLoggedIn ? (
                     <NavItem>
                     <NavLinks to='/' onClick={handleLogout}>

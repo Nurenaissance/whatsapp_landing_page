@@ -14,14 +14,15 @@ const firebaseConfig = {
   appId: "1:667498046930:web:cb281b053ddc016e18940b"
 };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 const Login = () => {
-  const Navigate=useNavigate();
+  const Navigate = useNavigate();
   const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-  const dispatch = useDispatch(); 
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null); // State to hold error message
+  const dispatch = useDispatch();
 
   
 
@@ -29,7 +30,6 @@ const [password, setPassword] = useState('');
     try {
       console.log('Attempting to log in with:', email, password);
 
-      const auth = getAuth();
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const loggedInUser = userCredential.user;
 
@@ -38,20 +38,28 @@ const [password, setPassword] = useState('');
         sendEmailVerification(auth.currentUser);
         return;
       }
-      dispatch(setUser(loggedInUser));;
 
+      dispatch(setUser(loggedInUser));
+
+      // Navigate to home page after successful login
       Navigate('/');
-      
-    } catch (error) {
-      console.error('Login Error:', error);
+          
+        } catch (error) {
+          console.error('Login Error:', error);
+      // Handle incorrect email or password error
+      if (error.code === 'auth/wrong-password') {
+        setError('Wrong password. Please try again.');
+      } else if (error.code === 'auth/user-not-found') {
+        setError('Email not found. Please check your email.');
+      } else {
+        setError('User does not found please Sign Up');
+      }
     }
   };
-  const handlesclick=()=>{
+
+  const handlesclick = () => {
     Navigate('../signup');
   };
-
-  
-
 
   return (
     <div className='sign_log_page'>
@@ -75,6 +83,7 @@ const [password, setPassword] = useState('');
           />
         </div>
         <div style={{ marginTop: '10px' }}>
+          {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message if exists */}
           <button className='button-49' onClick={handleLogin}>Login</button>
         </div>
       </div>
