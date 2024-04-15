@@ -4,6 +4,7 @@ import './Chatbot.css';
 
 const Chatbot = () => {
   const [contact, setContact] = useState(null);
+  const [selectedContact, setSelectedContact] = useState(null);
   const [conversation, setConversation] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [message, setMessage] = useState('');
@@ -40,17 +41,28 @@ const Chatbot = () => {
     }
   };
 
+  const handleContactClick = (contact) => {
+    setSelectedContact(contact);
+    fetchConversation(contact.id);
+  };
+
   const handleSearch = (event) => {
     setSearchQuery(event.target.value);
   };
 
+
+  
+
   const toggleAiReplies = () => {
+     axios.patch('https://climbing-ripple-angora.glitch.me/toggleAiReplies');
     setAiReplies(!aiReplies);
   };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
   };
+
+  
 
   const sendMessage = async () => {
     if (!message.trim()) return;
@@ -62,7 +74,7 @@ const Chatbot = () => {
 
     try {
       // Make a POST request to send the message
-      const response = await axios.post('/api/send-message', { message });
+      const response = await axios.post('https://climbing-ripple-angora.glitch.me/send-message', { message });
       const data = response.data;
 
       // Add the chatbot's response to the conversation
@@ -85,14 +97,17 @@ const Chatbot = () => {
         <div className="conversation">
           <h2>Conversation</h2>
           <div className="conversation-text">
-            {/* Render conversation messages here */}
-            {conversation.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender}`}>
-                {msg.text}
-              </div>
-            ))}
-          </div>
+  {/* Render conversation messages here */}
+          {conversation.map((msg, index) => (
+            <div
+              key={index}
+              className={`message ${msg.sender === 'user' ? 'user-message' : 'bot-message'}`}
+            >
+              {msg.text}
+            </div>
+          ))}
         </div>
+           </div>
         <div className="input-area">
           <input
             type="text"
