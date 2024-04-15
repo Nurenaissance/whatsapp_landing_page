@@ -52,7 +52,7 @@
 
 /* Center - Chat messages */
 .chat.card {
-  width: 80%; /* Wider chat screen */
+  width: 70%; /* Adjust width for wider chat screen */
   padding: 1rem;
   background-color: #f0f8f7; /* Light green background */
   border-radius: 0 5px 5px 0; /* Rounded corners on right side */
@@ -60,44 +60,46 @@
   height: calc(100vh - 2rem); /* Adjust height to fit remaining space */
 }
 
-.chat .conversation {
+.conversation {
   margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 4px;
   background-color: #e9f5ea; /* Light green message background */
   height: 80vh;
-  flex: 1;
   overflow-y: auto;
+  flex-wrap: wrap;
 }
 
-.chat .message {
+.message {
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  border-radius: 4px;
-  display: block; /* Make messages appear on separate lines */
+  border-radius: 8px;
+  display: flex; 
   width: fit-content; /* Allow messages to wrap naturally */
   max-width: 70%;
 }
 
-.chat .message.user {
+.user-message {
   background-color: #dcf8c6; /* Light green user messages */
   color: #333; /* Dark gray text */
+  align-self: flex-start; /* Align user messages to the left */
 }
 
-.chat .message.chatbot {
-  background-color: #ffffff; /* White chatbot messages */
-  color: #333; /* Dark gray text */
+.bot-message {
+  background-color: #e0e0e0; /* Light gray bot messages */
+  color: #000; /* Black text */
+  align-self: flex-end; /* Align bot messages to the right */
 }
 
 /* Input area */
-.chat .input-area {
+.input-area {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
 }
 
-.chat .input-area button {
+.input-area button {
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 4px;
@@ -107,18 +109,19 @@
   transition: background-color 0.2s ease-in-out;
 }
 
-.chat .input-area button:hover {
+.input-area button:hover {
   background-color: #128c7e; /* Darker green hover effect */
 }
 
-.chat .input-area input[type="text"] {
+.input-area input[type="text"] {
   width: calc(100% - 8rem); /* Adjust width to fit alongside buttons */
   padding: 0.5rem;
 }
+
 /* Right side - Contact details */
 .contact-details.card {
   width: 30%; /* Adjust width for wider chat screen */
-  padding: 1.5rem; /* Increase padding for better spacing */
+  padding: 1rem; /* Increase padding for better spacing */
   background-color: #f0f8f7; /* White background */
   border-radius: 0 5px 5px 0; /* Rounded corners on right side */
 }
