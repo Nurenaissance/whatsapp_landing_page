@@ -28,7 +28,7 @@ const Chatbot = () => {
 
   const fetchConversation = async (phoneNumber) => {
     try {
-      const response = await axios.get(`https://climbing-ripple-angora.glitch.me/get-map/919528227181/`);
+      const response = await axios.get(`https://climbing-ripple-angora.glitch.me/get-map/?phone=${phoneNumber}/`);
       const { bot_replies, user_replies } = response.data;
       const newConversation = [];
       for (let i = 0; i < bot_replies.length; i++) {
