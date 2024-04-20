@@ -17,10 +17,17 @@ const Chatbot = () => {
 
   
 
+  
+
   const fetchContacts = async () => {
     try {
-      const response = await axios.get('https://climbing-ripple-angora.glitch.me/get-contacts/');
-      setContacts(response.data);
+      const response = await axios.get('https://1c02-103-174-32-3.ngrok-free.app/get-contacts/', {
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+    console.log("response is, " , response) ; 
+    setContacts(response.data.contacts || []);
     } catch (error) {
       console.error('Error fetching contacts:', error);
     }
@@ -28,7 +35,7 @@ const Chatbot = () => {
 
   const fetchConversation = async (phoneNumber) => {
     try {
-      const response = await axios.get(`https://climbing-ripple-angora.glitch.me/get-map/?phone=${phoneNumber}/`);
+      const response = await axios.get(`https://1c02-103-174-32-3.ngrok-free.app/get-map?phone=${phoneNumber}  `);
       const { bot_replies, user_replies } = response.data;
       const newConversation = [];
       for (let i = 0; i < bot_replies.length; i++) {
@@ -45,11 +52,20 @@ const Chatbot = () => {
     }
   };
 
-  const socket = io();
-  socket.on('new-message', (data) => {
-    console.log('New message received:', data);
-    fetchConversation(data.phone_number); // Fetch conversation for the received phone number
-  });
+  useEffect(() => {
+    const socket = io('https://1c02-103-174-32-3.ngrok-free.app/');
+    socket.on('new-message', (data) => {
+      // Check if the received data has a "message" property
+      if (data && data.message) {
+        // Append the new message to the existing conversation array
+        setConversation(prevConversation => [...prevConversation, { text: data.message, sender: 'user' }]);
+        console.log('New message received:', data);
+      }
+    });
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
@@ -61,12 +77,13 @@ const Chatbot = () => {
   };
 
   const toggleAiReplies = () => {
-    axios.patch('https://climbing-ripple-angora.glitch.me/toggleAiReplies');
+    axios.patch('https://1c02-103-174-32-3.ngrok-free.app/toggleAiReplies');
     setAiReplies(!aiReplies);
   };
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
+    setConversation([...conversation, event.target.value]);
   };
 
   const sendMessage = async () => {
@@ -74,12 +91,12 @@ const Chatbot = () => {
 
     // Add the user's message to the conversation (excluding '.')
     const newMessage = { text: message, sender: 'user' };
-    setConversation([...conversation, newMessage]);
+   
     setMessage('');
 
     try {
       // Make a POST request to send the message
-      const response = await axios.post('https://climbing-ripple-angora.glitch.me/send-message', { message });
+      const response = await axios.post('https://1c02-103-174-32-3.ngrok-free.app/send-message', { message });
       const data = response.data;
 
       // Add the chatbot's response to the conversation (excluding '.')
