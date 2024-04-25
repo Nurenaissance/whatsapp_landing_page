@@ -21,6 +21,8 @@ import { FaRobot } from 'react-icons/fa';
         const [click, setClick] = useState(false);
         const [button, setButton] = useState(true);
         const [showTranscript, setShowTranscript] = useState(false);
+        const [showcontacts, setShowcontacts] = useState(false);
+        const [showFlows, setShowFlows] = useState(false);
 
         const [homeClick, setHomeClick] = useState(false);
         const [servicesClick, setServicesClick] = useState(false);
@@ -43,8 +45,15 @@ import { FaRobot } from 'react-icons/fa';
             setServicesClick(false);
         }
 
+        const handlecontactsClick = () => {
+            setShowcontacts(true);
+          };
+
         const handleTranscriptClick = () => {
             setShowTranscript(true);
+          };
+          const handleFlowsClick = () => {
+            setShowFlows(true);
           };
 
         const handleClick = () =>  setClick(!click);
@@ -104,6 +113,16 @@ import { FaRobot } from 'react-icons/fa';
                             <NavItem onClick={handleProductsClick} productsClick={productsClick}>
                                 <NavLinks to='/Products' onClick={closeMobileMenu}>
                                     Products
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem onClick={handlecontactsClick} productsClick={productsClick}>
+                                <NavLinks to='/Contact' onClick={closeMobileMenu}>
+                                    Contacts
+                                </NavLinks>
+                            </NavItem>
+                            <NavItem onClick={handleFlowsClick} productsClick={productsClick}>
+                                <NavLinks to='/Flows' onClick={closeMobileMenu}>
+                                    Flows
                                 </NavLinks>
                             </NavItem>
                             <NavItem onClick={handleTranscriptClick} productsClick={productsClick}>

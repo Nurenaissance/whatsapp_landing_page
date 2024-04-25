@@ -1,0 +1,106 @@
+.Flows{
+    height: 100vh;
+    margin-left: 15%;
+}
+.Flows-card {
+    background-color: aliceblue;
+    padding: 20px;
+  }
+.flows-content{
+  display: flex;
+  align-items: center;
+}
+  
+  .flows-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  
+  .flows-content input {
+    height: 2%;
+    margin-right: 60%;
+  }
+  
+  .flows-content button {
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    background-color: #218838;
+    color: #fff;
+  }
+  
+  .search-bar button:hover {
+    background-color: #0056b3;
+  }
+  
+  .timer-button {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    border-color: lightgreen;
+    background-color: #fff;
+    color: lightgreen;
+  }
+  
+  .timer-button:hover {
+    background-color: #218838;
+  }
+  .sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    color: #218838;
+    padding-top: 20px;
+    margin-top: 5%;
+}
+
+.sidebar a {
+    margin-top: 20px;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #218838;
+    display: block;
+    transition: 0.3s all;
+    animation: 1s ease forwards;
+    animation-delay: calc(.2s * var(--i));
+}
+/* Table styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f0f0f0;
+}
+
+/* Button styles */
+.table button {
+  padding: 5px 10px;
+  margin-right: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #ddd;
+  color: black;
+}
+
+.table button:hover {
+  background-color: #0056b3;
+}
+
+.table p {
+  margin-top: 5px;
+  font-size: 12px;
+}

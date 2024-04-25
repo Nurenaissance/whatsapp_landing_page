@@ -21,13 +21,22 @@ const Chatbot = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get('https://1c02-103-174-32-3.ngrok-free.app/get-contacts/', {
+      const response = await axios.get('https://whatsappbotserver.azurewebsites.net/get-contacts/', {
         headers: {
           'Accept': 'application/json'
         }
       });
-    console.log("response is, " , response) ; 
-    setContacts(response.data.contacts || []);
+
+      setContacts(response.data);
+      
+      console.log("response is, ", response); 
+      
+      response.data.forEach((innerArray, index) => {
+        console.log(`Array ${index}:`, innerArray);
+      });
+  
+      // Now you can analyze the inner arrays and determine which one contains the contacts data
+      // Once identified, you can setContacts with that data
     } catch (error) {
       console.error('Error fetching contacts:', error);
     }
@@ -35,7 +44,7 @@ const Chatbot = () => {
 
   const fetchConversation = async (phoneNumber) => {
     try {
-      const response = await axios.get(`https://1c02-103-174-32-3.ngrok-free.app/get-map?phone=${phoneNumber}  `);
+      const response = await axios.get(`https://whatsappbotserver.azurewebsites.net/get-map?phone=$(phoneNumber)`);
       const { bot_replies, user_replies } = response.data;
       const newConversation = [];
       for (let i = 0; i < bot_replies.length; i++) {
@@ -53,13 +62,14 @@ const Chatbot = () => {
   };
 
   useEffect(() => {
-    const socket = io('https://1c02-103-174-32-3.ngrok-free.app/');
+    const socket = io('https://whatsappbotserver.azurewebsites.net/');
     socket.on('new-message', (data) => {
       // Check if the received data has a "message" property
       if (data && data.message) {
         // Append the new message to the existing conversation array
-        setConversation(prevConversation => [...prevConversation, { text: data.message, sender: 'user' }]);
+        setConversation([...conversation, data.message]);
         console.log('New message received:', data);
+        console.log('New Conversation', conversation);
       }
     });
     return () => {
@@ -77,7 +87,7 @@ const Chatbot = () => {
   };
 
   const toggleAiReplies = () => {
-    axios.patch('https://1c02-103-174-32-3.ngrok-free.app/toggleAiReplies');
+    axios.patch('https://whatsappbotserver.azurewebsites.net/toggleAiReplies');
     setAiReplies(!aiReplies);
   };
 
@@ -86,7 +96,7 @@ const Chatbot = () => {
     setConversation([...conversation, event.target.value]);
   };
 
-  const sendMessage = async () => {
+  const sendMessage = async (phoneNumber) => {
     if (!message.trim() || message.trim() === '.') return;
 
     // Add the user's message to the conversation (excluding '.')
@@ -96,7 +106,7 @@ const Chatbot = () => {
 
     try {
       // Make a POST request to send the message
-      const response = await axios.post('https://1c02-103-174-32-3.ngrok-free.app/send-message', { message });
+      const response = await axios.post('https://whatsappbotserver.azurewebsites.net/send-message', {phoneNumber, message });
       const data = response.data;
 
       // Add the chatbot's response to the conversation (excluding '.')
