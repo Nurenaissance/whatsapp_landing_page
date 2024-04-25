@@ -14,7 +14,9 @@ import ScrollToTop from './components/ScrollToTop';
 import { setUser, clearUser } from './redux_comp/authActions';
 import { useSelector, useDispatch } from 'react-redux';
 import Chat from './pages/chatbot/Chat';
+import Contact from './pages/contacts/contacts';
 import Logs from './callLogs';
+import Flows from './pages/flows/flows';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBPsLD_NgSwchMrpG2U81UsH_USQGSiNZU",
@@ -77,6 +79,8 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/logs" element={<Logs/>}/>
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/contact" element={<Contact/>}/>
+          <Route path= "/flows" element={<Flows/>}/>
           <Route path="/signup-page" element={<SignupPage />} /> 
           <Route path="/login" element={<Login />} />
           {isLoggedIn && <Route path="/chat" element={<Chat />} />} 

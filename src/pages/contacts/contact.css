@@ -1,0 +1,140 @@
+.contact-page {
+  height: 100vh;
+  background-color: aliceblue;
+}
+.contact-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+   
+}
+.contact-card h2{
+  margin-bottom: 30px;
+}
+.contact-card p{
+  margin-bottom: 30px;
+}
+  .contact-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-contact-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 80%; 
+  }
+  
+  .add-contact-btn:hover {
+    background-color: darkgreen;
+  }
+  .sorting-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; 
+    margin-top: 50px;
+  }
+  
+  .sorting-section label {
+    margin-right: 20px;
+    font-size: larger;
+    font-weight: bold;
+  }
+   
+  .sorting-section input[type="text"]{
+  
+    margin-right: 20px;
+    height: 50px;
+    width: 250px;
+  }
+  .sorting-section select{
+    margin-right: 20px;
+    height: 50px;
+    width: 150px;
+    margin-right: 5%;
+  }
+  .segment-form {
+    margin-top: 10px;
+  }
+  
+  .segment-form input[type="text"],
+  .segment-form button {
+    margin-right: 10px;
+  }
+  
+.filter-button {
+  background-color: green;
+  width: 3%;
+  color: white;
+  cursor: pointer;
+  font-size: 25px;
+  margin-right: 10px; 
+}
+.import-export {
+  display: flex;
+  align-items: center;
+}
+
+.import-btn {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 450px; 
+  cursor: pointer;
+}
+.export-btn {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.import-btn:hover,
+.export-btn:hover {
+  background-color: #45a049; 
+}
+
+.table-container {
+  margin-top: 20px;
+}
+
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.contact-table th,
+.contact-table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.contact-table th {
+  background-color: #f2f2f2;
+}
+
+.contact-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.contact-table tbody tr:hover {
+  background-color: #ddd;
+}
